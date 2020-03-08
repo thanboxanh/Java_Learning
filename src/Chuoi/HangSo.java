@@ -3,20 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaOperator;
+package Chuoi;
 
 /**
  *
  * @author PC
  */
-public class ChiaCodu {
-    
+public class HangSo {
     
     public static void main(String[] args) {
-        int a = 10;
-        int b = 3;
-        int c = a / b;
-        int d = a % b;
-        System.out.println("Ket qua cua phep chia tren la: " + c + " Du: " + d);
+        final String a = "abc";
+        
+        System.out.println(a + 7);
     }
 }

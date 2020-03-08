@@ -3,20 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaOperator;
+package VongLap;
 
 /**
  *
  * @author PC
  */
-public class ChiaCodu {
-    
+public class VeHinhChuNhat {
     
     public static void main(String[] args) {
-        int a = 10;
-        int b = 3;
-        int c = a / b;
-        int d = a % b;
-        System.out.println("Ket qua cua phep chia tren la: " + c + " Du: " + d);
+        int chieuDai = 10, chieuRong = 5;
     }
 }

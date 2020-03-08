@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaOperator;
+package Chuoi;
 
 /**
  *
  * @author PC
  */
-public class ChiaCodu {
+public class KTChanLe {
     
+    static void chanLe(int a) {
+        if (a % 2 == 0) {
+            System.out.println("so chan");
+        } else {
+            System.out.println("so le");
+        }
+    }
     
     public static void main(String[] args) {
-        int a = 10;
-        int b = 3;
-        int c = a / b;
-        int d = a % b;
-        System.out.println("Ket qua cua phep chia tren la: " + c + " Du: " + d);
+        chanLe(5);
     }
 }
