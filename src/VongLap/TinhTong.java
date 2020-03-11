@@ -20,7 +20,7 @@ public class TinhTong {
         int b = haudaden.nextInt();
         for (int i = 1; i <= b; i++) {
             if (i % 2 == 0) {
-                ketqua += i; // ketqua = ketqua + i
+                ketqua += i; // ketqua = ketqua + i;
             }
         }
         System.out.println(ketqua);
