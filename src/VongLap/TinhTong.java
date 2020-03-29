@@ -19,9 +19,9 @@ public class TinhTong {
         System.out.println("nhap so; ");
         int b = haudaden.nextInt();
         for (int i = 1; i <= b; i++) {
-            if (i % 2 == 0) {
+            //if (i % 2 == 0) {
                 ketqua += i; // ketqua = ketqua + i;
-            }
+            //}
         }
         System.out.println(ketqua);
     }
