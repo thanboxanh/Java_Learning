@@ -1,11 +1,13 @@
 package BaiTap;
 
+import HuongDoiTuong.HocSinh;
+
 /**
  *
  * @author ThanBoXanh
  */
 public class BTTachChuoi {
-    
+
     static void tachChuoi() {
         String a = "hello world";
         String[] array = a.split("o");
@@ -13,13 +15,13 @@ public class BTTachChuoi {
             System.out.println(array[i]);
         }
     }
-    
+
     static void catChuoi() {
         String a = "hello world";
         String b = a.substring(3, 15);
         System.out.println(b);
     }
-    
+
     static void tachKitu() {
         String a = "HELLO WORLD!!!";
         String[] array = a.split("");
@@ -27,17 +29,17 @@ public class BTTachChuoi {
             System.out.print(array[i]);
         }
     }
-    
+
     static void daoNguocMang() {
         int[] a = {1, 2, 3, 4, 5};
         int[] b = new int[a.length];
-        
+
         for (int i = a.length - 1; i >= 0; i--) {
             b[i] = a[i];
             System.out.println(b[i]);
         }
     }
-    
+
     static void daoNguocChuoi() {
         String a = "thanboxanh";
         String[] b = a.split("");
@@ -47,8 +49,9 @@ public class BTTachChuoi {
         }
         System.out.println();
     }
- 
+
     public static void main(String[] args) {
         daoNguocChuoi(); 
+        
     }
 }

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,22 +27,63 @@ import javax.swing.Timer;
  */
 class Surface extends JPanel {
 
-    int x = 1000, y = 10;
+    int x1 = 10, x2 = 10, y = 150;
+    int tocdo1 = 10, tocdo2 = 10;
+    boolean meo1Tien, meo2Tien = true;
+    Random rand = new Random();
+    String hinhTien1 = "meo.png", hinhTien2 = "meo1.png", hinhLui1 = "meo2.png", hinhLui2 = "meo3.png";
+    String hinhHienTaiMeo1 = hinhTien1, hinhHienTaiMeo2 = hinhTien2;
 
-    public Surface() {
-        Timer timer = new Timer(1, new ActionListener() {
+    public Surface() throws InterruptedException {
+        Thread.sleep(5000);
+        Timer timer = new Timer(50, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(x > 900) {
-                    x--;
-//                    repaint();
-                } else if(x == 0) {
-                    x++;
-//                    ((Timer) (e.getSource())).restart();
-                } else if (x > 100) {
-                    x--;
+                randomTocDo();
+                if (meo1Tien) {
+                    x1 += tocdo1;
+                    if(hinhHienTaiMeo1.equals(hinhTien1)) {
+                        hinhHienTaiMeo1 = hinhTien2;
+                    } else {
+                        hinhHienTaiMeo1 = hinhTien1;
+                    }
+                } else {
+                    x1 -= tocdo1;
+                    if(hinhHienTaiMeo1.equals(hinhLui1)) {
+                        hinhHienTaiMeo1 = hinhLui2;
+                    } else {
+                        hinhHienTaiMeo1 = hinhLui1;
+                    }
                 }
+
+                if (meo2Tien) {
+                    x2 += tocdo2;
+                    if(hinhHienTaiMeo2.equals(hinhTien1)) {
+                        hinhHienTaiMeo2 = hinhTien2;
+                    } else {
+                        hinhHienTaiMeo2 = hinhTien1;
+                    }
+                } else {
+                    x2 -= tocdo2;
+                    if(hinhHienTaiMeo2.equals(hinhLui1)) {
+                        hinhHienTaiMeo2 = hinhLui2;
+                    } else {
+                        hinhHienTaiMeo2 = hinhLui1;
+                    }
+                }
+
+                if (x1 >= 1600) {
+                    meo1Tien = false;
+                } else if (x1 <= 10) {
+                    meo1Tien = true;
+                }
+                if (x2 >= 1600) {
+                    meo2Tien = false;
+                } else if (x2 <= 10) {
+                    meo2Tien = true;
+                }
+
                 repaint();
             }
         });
@@ -49,10 +91,21 @@ class Surface extends JPanel {
         timer.start();
     }
 
-    private void doDrawing(Graphics g2d) {
-        try {
-            veHinh(g2d);
+    void randomTocDo() {
+        tocdo1 = rand.nextInt(10) + 30;
+        tocdo2 = rand.nextInt(10) + 30;
+    }
 
+    void run(Graphics g2d) throws IOException {
+        veHinh(g2d, hinhHienTaiMeo1, x1, y);
+        veHinh(g2d, hinhHienTaiMeo2,  x2, y + 150);
+    }
+
+    private void doDrawing(Graphics g2d) throws InterruptedException {
+        try {
+            run(g2d);
+
+//            Thread.sleep(50);
 //        Graphics2D g2d = (Graphics2D) g;
 //        g2d.drawLine(100, 100, 100, 400);
 //        g2d.drawLine(300, 100, 300, 400);
@@ -93,18 +146,22 @@ class Surface extends JPanel {
         g2d.fillOval(900, 100, 300, 300);
     }
 
-    void veHinh(Graphics g2d) throws IOException {
-        final BufferedImage images = ImageIO.read(new File("player.png"));
-        g2d.drawImage(images, x, y, 30, 30, null);
-
+    void veHinh(Graphics g2d, String hinh, int xs, int ys) throws IOException {
+        final BufferedImage images = ImageIO.read(new File(hinh));
+        g2d.drawImage(images, xs, ys, 100, 100, null);
     }
 
     @Override
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        doDrawing(g);
-        g.dispose();
+        try {
+            ve7SacCauVong(g);
+            doDrawing(g);
+            g.drawLine(1500, y, 1500, y + 150);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Surface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 
@@ -112,15 +169,19 @@ public class BasicEx extends JFrame {
 
     public BasicEx() {
 
-        initUI();
+        try {
+            initUI();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BasicEx.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void initUI() {
+    private void initUI() throws InterruptedException {
 
         add(new Surface());
 
         setTitle("Simple Java 2D example");
-        setSize(300, 200);
+        setSize(2000, 1500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

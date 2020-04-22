@@ -24,11 +24,18 @@ public class Mang2Chieu {
 
         int[][] array = new int[3][4]; // 3 -> do dai cua array
         //System.out.println(array[4][2]);
-        Scanner scanner = new Scanner(System.in);
+        
         for(int i = 0; i < array.length; i++) {
             for(int j = 0; j < array[0].length; j++) {
+                Scanner scanner = new Scanner(System.in);
                 System.out.println("Moi ban nhap so: " + i + " " + j);
-                array[i][j] = scanner.nextInt();
+                try {
+                   array[i][j] = scanner.nextInt(); 
+                } catch (Exception ex) {
+                    System.out.println(ex.getCause());
+                    System.out.println("moi ban nhap lai");
+                    j--;
+                }
             }
         }
         
