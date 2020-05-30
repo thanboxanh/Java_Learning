@@ -9,10 +9,6 @@ import java.util.Scanner;
 public class SuDung {
 
     public static void main(String[] args) {
-        /*HocSinh a = new HocSinh("bao xau trai", 12);
-        a.congTuoi();
-        HocSinh b = new HocSinh("Hau dep trai", 32);*/
-
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Moi Ban Nhap ten con bo: ");
@@ -27,8 +23,5 @@ public class SuDung {
             conbo a = new conbo(tenConBo, cannang, chatLuongThit, donVi);
             a.KiemTraTheTrang();
         }
-
-//        conbo b = new conbo("Bao", 1000000, "cực dở tệ", "g");
-//        b.KiemTraTheTrang();
     }
 }
