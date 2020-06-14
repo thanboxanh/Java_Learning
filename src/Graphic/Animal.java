@@ -16,15 +16,9 @@ public class Animal {
     private int tocdo = 0;
     boolean dangTien = true;
     String[] mangHinh;
+    int diem = 0;
     Random random = new Random();
 
-//    public Animal(String hinhKhoiTao1, String hinhKhoiTao2, int hoanhDo, int tungDo) {
-//        hinh1 = hinhKhoiTao1;
-//        hinh2 = hinhKhoiTao2;
-//        hinhHienTai = hinh1;
-//        x = hoanhDo;
-//        y = tungDo;
-//    }
     public Animal(String[] mangHinhKhoiTao, int hoanhDo, int tungDo) {
         x = hoanhDo;
         y = tungDo;
@@ -33,7 +27,7 @@ public class Animal {
     }
 
     void randomTocDo() {
-        tocdo = random.nextInt(10) + 10;
+        tocdo = random.nextInt(50) + 10;
     }
 
     void veHinh(Graphics g2d) throws IOException {
@@ -46,6 +40,7 @@ public class Animal {
 
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         g2d.drawImage(op.filter(image, null), x, y, 170, 170, null);
+        g2d.drawString(String.valueOf(diem), 1700, y);
     }
 
     void doiHinh() {
@@ -63,12 +58,19 @@ public class Animal {
         }
     }
 
-    void run() {
+    void run(ChuongNgaiVat ch) {
         randomTocDo();
         if (x >= 1600) {
+            if(dangTien) {
+                diem++;
+            }
             dangTien = false;
+            
         } else if (x <= 10) {
             dangTien = true;
+        }
+        if(y == ch.tungdo - 50 && x >= ch.hoanhdo  - 35 && x <= ch.hoanhdo + 35){
+            tocdo -=30;
         }
 
         if (dangTien) {
