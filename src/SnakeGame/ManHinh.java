@@ -22,8 +22,10 @@ public class ManHinh extends JFrame {
                 frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 
                 ManHinhGame panel = new ManHinhGame();
-                panel.setMaximumSize(new Dimension(700, 700));
+                panel.setMaximumSize(new Dimension(600, 600));
                 panel.setBackground(Color.BLACK);
+                panel.addKeyListener(panel);
+                panel.setFocusable(true);
 
                 frame.taoButton();
                 frame.add(panel);
