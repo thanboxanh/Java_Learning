@@ -3,6 +3,8 @@ package SnakeGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +15,8 @@ import javax.swing.JPanel;
  * @author Bo Than
  */
 public class ManHinh extends JFrame {
+    
+    static ManHinhGame panel;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -21,7 +25,7 @@ public class ManHinh extends JFrame {
                 ManHinh frame = new ManHinh();
                 frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 
-                ManHinhGame panel = new ManHinhGame();
+                panel = new ManHinhGame();
                 panel.setMaximumSize(new Dimension(600, 600));
                 panel.setBackground(Color.BLACK);
                 panel.addKeyListener(panel);
@@ -46,20 +50,19 @@ public class ManHinh extends JFrame {
         
         add(panelButton);
                
-//        buttonStart.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //timer.start();
-//            }
-//        });
-//
+        buttonStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.timer.start();
+            }
+        });
         JButton buttonStop = new JButton("Stop");
         panelButton.add(buttonStop);
-//        buttonStop.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-////                timer.stop();
-//            }
-//        });
+        buttonStop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.timer.stop();
+            }
+        });
     }
 }

@@ -2,7 +2,10 @@ package SnakeGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -21,36 +24,51 @@ public class Snake {
     }
 
     void veHinh(Graphics g2d) throws IOException {
-        for (int i = 0; i < soLuongHinh; i++) {
+        for (int i = 0; i < soLuongHinh - 1; i++) {
             g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
         }
+        BufferedImage image = ImageIO.read(new File("head.png"));
+        g2d.drawImage(image, mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
     }
 
     void moveRight(int chieuDaiPanel) {
-        Hinh tam = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y);
-        mangHinh[soLuongHinh - 1].x += rong;
-        mangHinh[0] = new Hinh(tam.x, tam.y);
+        Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x + dai, mangHinh[soLuongHinh - 1].y);
+        for(int i = soLuongHinh - 1; i >= 0; i--){
+            hoanDoi(mangHinh[i], hinhMoi);
+        }
         resetVitri(chieuDaiPanel);
+    }
+    
+    void hoanDoi(Hinh h1, Hinh h2) {
+        Hinh tam = new Hinh(h1.x, h1.y);
+        h1.x = h2.x;
+        h1.y = h2.y;
+        
+        h2.x = tam.x;
+        h2.y = tam.y;
     }
 
     void moveXuong(int chieuDaiPanel) {
-        Hinh tam = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y);
-        mangHinh[soLuongHinh - 1].y += dai;
-        mangHinh[0] = new Hinh(tam.x, tam.y);
+         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y + dai);
+        for(int i = soLuongHinh - 1; i >= 0; i--){
+            hoanDoi(mangHinh[i], hinhMoi);
+        }
         resetVitri(chieuDaiPanel);
     }
 
     void moveTrai(int chieuDaiPanel) {
-        Hinh tam = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y);
-        mangHinh[soLuongHinh - 1].x -= rong;
-        mangHinh[0] = new Hinh(tam.x, tam.y);
+         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x - dai, mangHinh[soLuongHinh - 1].y);
+        for(int i = soLuongHinh - 1; i >= 0; i--){
+            hoanDoi(mangHinh[i], hinhMoi);
+        }
         resetVitri(chieuDaiPanel);
     }
 
     void moveLen(int chieuDaiPanel) {
-        Hinh tam = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y);
-        mangHinh[soLuongHinh - 1].y -= dai;
-        mangHinh[0] = new Hinh(tam.x, tam.y);
+        Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y - dai);
+        for(int i = soLuongHinh - 1; i >= 0; i--){
+            hoanDoi(mangHinh[i], hinhMoi);
+        }
         resetVitri(chieuDaiPanel);
     }
 
@@ -90,6 +108,7 @@ public class Snake {
             }
 
             soLuongHinh++;
+            a.lamMoi = true;
         }
     }
 }

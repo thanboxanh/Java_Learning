@@ -26,13 +26,13 @@ public class ManHinhGame extends JPanel implements KeyListener {
         timer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(huongdi == 39) {
+                if (huongdi == 39) {
                     snake.moveRight(chieuDaiPanel);
-                } else if(huongdi == 40) {
+                } else if (huongdi == 40) {
                     snake.moveXuong(chieuDaiPanel);
-                } else if(huongdi == 37) {
+                } else if (huongdi == 37) {
                     snake.moveTrai(chieuDaiPanel);
-                } else if(huongdi == 38) {
+                } else if (huongdi == 38) {
                     snake.moveLen(chieuDaiPanel);
                 }
                 snake.eatPrey(prey, huongdi);
@@ -49,30 +49,32 @@ public class ManHinhGame extends JPanel implements KeyListener {
         try {
             g2d.setColor(Color.GREEN);
             snake.veHinh(g2d);
-            prey.veHinh(g2d, drawPrey);
-            if(dem == 20){
-                drawPrey = true;
-//                dem = 0;
-            } else {
-                drawPrey = false;
-            }
+            prey.veHinh(g2d);
         } catch (Exception ex) {
-                System.out.println("asdsadadad");
+            System.out.println("asdsadadad");
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        huongdi = e.getKeyCode();
+        if ((huongdi == 37 && e.getKeyCode() == 39)
+                || (huongdi == 39 && e.getKeyCode() == 37)
+                || (huongdi == 38 && e.getKeyCode() == 40)
+                || (huongdi == 40 && e.getKeyCode() == 38)) {
+            return;
+        }
+        if (e.getKeyCode() <= 40 && e.getKeyCode() >= 37) {
+            huongdi = e.getKeyCode();
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
     }
 }

@@ -19,14 +19,16 @@ public class Prey {
 
     int dai = 30;
     int rong = 30;
-    int x = 150, y = 150;
+    int x = 150, y = 30;
+    boolean lamMoi = true;
 
-    void veHinh(Graphics g2d, boolean drawPrey) throws IOException {
+    void veHinh(Graphics g2d) throws IOException {
         Random random = new Random();
-//        if (drawPrey) {
-//            x = random.nextInt(21) * 30;
-//            y = random.nextInt(21) * 30;
-//        }
+        if (lamMoi) {
+            x = (random.nextInt(19) + 1) * 30;
+            y = (random.nextInt(19) + 1) * 30;
+            lamMoi = false;
+        }
         BufferedImage image;
         try {
             image = ImageIO.read(new File("prey.png"));
@@ -34,6 +36,5 @@ public class Prey {
         } catch (IOException ex) {
             Logger.getLogger(ChuongNgaiVat.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        g2d.fill3DRect(x, y, dai, rong, true);
     }
 }
