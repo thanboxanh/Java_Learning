@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
  */
 public class Prey {
 
-    int dai = 30;
-    int rong = 30;
+    int dai = 40;
+    int rong = 40;
     int x = 150, y = 30;
     boolean lamMoi = true;
 

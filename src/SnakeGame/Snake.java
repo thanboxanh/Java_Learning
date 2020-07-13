@@ -2,6 +2,9 @@ package SnakeGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,41 +27,62 @@ public class Snake {
     }
 
     void veHinh(Graphics g2d) throws IOException {
+//        AffineTransform tx = AffineTransform.getScaleInstance(1, 1);
+//        tx.rotate(45);
+//        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         for (int i = 0; i < soLuongHinh - 1; i++) {
-            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
+//            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
+            g2d.fillOval(mangHinh[i].x, mangHinh[i].y, dai, rong);
         }
         BufferedImage image = ImageIO.read(new File("head.png"));
-        g2d.drawImage(image, mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
+        Graphics2D graphic = (Graphics2D) g2d;
+        AffineTransform trans = new AffineTransform();
+        trans.setTransform(new AffineTransform());
+         AffineTransform origXform = graphic.getTransform();
+     AffineTransform newXform = (AffineTransform)(origXform.clone());
+     graphic.translate(-200, -200);
+     newXform.rotate(Math.toRadians(90));
+        trans.setTransform(newXform);
+//        graphic.translate(15, 15);
+//        graphic.rotate(70);
+//g2d.drawImage(image, trans);
+
+graphic.translate(this.getWidth() / 2, this.getHeight() / 2);
+graphic.rotate(Math.toRadians(90)));
+graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
+        graphic.drawImage(image ,mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
+        
+//     graphic.setTransform(origXform);
     }
 
     void moveRight(int chieuDaiPanel) {
         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x + dai, mangHinh[soLuongHinh - 1].y);
-        for(int i = soLuongHinh - 1; i >= 0; i--){
+        for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
         resetVitri(chieuDaiPanel);
     }
-    
+
     void hoanDoi(Hinh h1, Hinh h2) {
         Hinh tam = new Hinh(h1.x, h1.y);
         h1.x = h2.x;
         h1.y = h2.y;
-        
+
         h2.x = tam.x;
         h2.y = tam.y;
     }
 
     void moveXuong(int chieuDaiPanel) {
-         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y + dai);
-        for(int i = soLuongHinh - 1; i >= 0; i--){
+        Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y + dai);
+        for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
         resetVitri(chieuDaiPanel);
     }
 
     void moveTrai(int chieuDaiPanel) {
-         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x - dai, mangHinh[soLuongHinh - 1].y);
-        for(int i = soLuongHinh - 1; i >= 0; i--){
+        Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x - dai, mangHinh[soLuongHinh - 1].y);
+        for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
         resetVitri(chieuDaiPanel);
@@ -66,7 +90,7 @@ public class Snake {
 
     void moveLen(int chieuDaiPanel) {
         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y - dai);
-        for(int i = soLuongHinh - 1; i >= 0; i--){
+        for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
         resetVitri(chieuDaiPanel);
@@ -83,11 +107,11 @@ public class Snake {
                 continue;
             }
 
-            if (mangHinh[i].y == 0) {
+            if (mangHinh[i].y < 0) {
                 mangHinh[i].y += chieuDaiPanel;
                 continue;
             }
-            if (mangHinh[i].x == 0) {
+            if (mangHinh[i].x < 0) {
                 mangHinh[i].x += chieuDaiPanel;
                 continue;
             }
