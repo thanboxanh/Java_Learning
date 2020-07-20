@@ -1,14 +1,11 @@
 package SnakeGame;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +13,11 @@ import javax.imageio.ImageIO;
  */
 public class Snake {
 
-    Hinh[] mangHinh = new Hinh[100];
+    Hinh[] mangHinh = new Hinh[10000];
     int dai = 30;
     int rong = 30;
     int soLuongHinh = 2;
+    String head = "head1.png";
 
     public Snake() {
         mangHinh[0] = new Hinh(30, 30);
@@ -27,32 +25,12 @@ public class Snake {
     }
 
     void veHinh(Graphics g2d) throws IOException {
-//        AffineTransform tx = AffineTransform.getScaleInstance(1, 1);
-//        tx.rotate(45);
-//        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         for (int i = 0; i < soLuongHinh - 1; i++) {
 //            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
             g2d.fillOval(mangHinh[i].x, mangHinh[i].y, dai, rong);
         }
-        BufferedImage image = ImageIO.read(new File("head.png"));
-        Graphics2D graphic = (Graphics2D) g2d;
-        AffineTransform trans = new AffineTransform();
-        trans.setTransform(new AffineTransform());
-         AffineTransform origXform = graphic.getTransform();
-     AffineTransform newXform = (AffineTransform)(origXform.clone());
-     graphic.translate(-200, -200);
-     newXform.rotate(Math.toRadians(90));
-        trans.setTransform(newXform);
-//        graphic.translate(15, 15);
-//        graphic.rotate(70);
-//g2d.drawImage(image, trans);
-
-graphic.translate(this.getWidth() / 2, this.getHeight() / 2);
-graphic.rotate(Math.toRadians(90)));
-graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
-        graphic.drawImage(image ,mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
-        
-//     graphic.setTransform(origXform);
+        BufferedImage image = ImageIO.read(new File(head));
+        g2d.drawImage(image, mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
     }
 
     void moveRight(int chieuDaiPanel) {
@@ -60,7 +38,8 @@ graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
-        resetVitri(chieuDaiPanel);
+        head = "head1.png";
+        resetVitri(chieuDaiPanel);  
     }
 
     void hoanDoi(Hinh h1, Hinh h2) {
@@ -77,6 +56,7 @@ graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
+        head = "head2.png";
         resetVitri(chieuDaiPanel);
     }
 
@@ -85,6 +65,7 @@ graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
+        head = "head3.png";
         resetVitri(chieuDaiPanel);
     }
 
@@ -93,7 +74,18 @@ graphic.translate(-image.getWidth(this) / 2, -image.getHeight(this) / 2);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
         }
+        head = "head4.png";
         resetVitri(chieuDaiPanel);
+    }
+    
+    boolean XuLyThangThua() {
+        Hinh dauRan = mangHinh[soLuongHinh - 1];
+        for (int i = 0; i < soLuongHinh - 1; i++) {
+            if(dauRan.x == mangHinh[i].x && dauRan.y == mangHinh[i].y) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void resetVitri(int chieuDaiPanel) {

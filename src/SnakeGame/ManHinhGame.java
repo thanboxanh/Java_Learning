@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -23,7 +24,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
     int chieuDaiPanel = 600;
 
     public ManHinhGame() {
-        timer = new Timer(200, new ActionListener() {
+        timer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (huongdi == 39) {
@@ -37,7 +38,11 @@ public class ManHinhGame extends JPanel implements KeyListener {
                 }
                 snake.eatPrey(prey, huongdi);
                 dem++;
-                repaint();
+                if(snake.XuLyThangThua()) {
+                    JOptionPane.showMessageDialog(null, "Game over");
+                    timer.stop();
+                }
+                repaint();                                                      
             }
         });
         timer.start();
