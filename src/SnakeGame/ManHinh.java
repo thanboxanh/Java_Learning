@@ -3,11 +3,13 @@ package SnakeGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -24,14 +26,15 @@ public class ManHinh extends JFrame {
             public void run() {
                 ManHinh frame = new ManHinh();
                 frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
-
-                panel = new ManHinhGame();
+                JLabel jLabel = new JLabel("diem cua ban");
+                jLabel.setForeground(Color.red);
+                panel = new ManHinhGame(jLabel);
                 panel.setMaximumSize(new Dimension(600, 600));
                 panel.setBackground(Color.BLACK);
                 panel.addKeyListener(panel);
                 panel.setFocusable(true);
 
-                frame.taoButton();
+                frame.taoButton(jLabel);
                 frame.add(panel);
                 frame.setSize(1500, 700);
                 frame.setResizable(false);
@@ -40,7 +43,7 @@ public class ManHinh extends JFrame {
         });
     }
 
-    void taoButton() { 
+    void taoButton(JLabel jLabel) { 
         JPanel panelButton = new JPanel();
         JButton buttonStart = new JButton("Start");
         buttonStart.setSize(300, 300);
@@ -64,5 +67,7 @@ public class ManHinh extends JFrame {
                 panel.timer.stop();
             }
         });
+        
+        panelButton.add(jLabel);
     }
 }

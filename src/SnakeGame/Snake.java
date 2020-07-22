@@ -110,7 +110,7 @@ public class Snake {
         }
     }
 
-    void eatPrey(Prey a, int huongdi) {
+    boolean eatPrey(Prey a, int huongdi) {
         if (mangHinh[soLuongHinh - 1].x == a.x && mangHinh[soLuongHinh - 1].y == a.y) {
             Hinh dauRan = mangHinh[soLuongHinh - 1];
             if (huongdi == 37) {
@@ -125,6 +125,8 @@ public class Snake {
 
             soLuongHinh++;
             a.lamMoi = true;
+            return true;
         }
+        return false;
     }
 }
