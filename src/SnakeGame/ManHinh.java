@@ -56,6 +56,7 @@ public class ManHinh extends JFrame {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel.requestFocus();
                 panel.timer.start();
             }
         });

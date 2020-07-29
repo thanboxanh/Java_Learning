@@ -26,8 +26,8 @@ public class Snake {
 
     void veHinh(Graphics g2d) throws IOException {
         for (int i = 0; i < soLuongHinh - 1; i++) {
-//            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
-            g2d.fillOval(mangHinh[i].x, mangHinh[i].y, dai, rong);
+            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
+//            g2d.fillOval(mangHinh[i].x, mangHinh[i].y, dai, rong);
         }
         BufferedImage image = ImageIO.read(new File(head));
         g2d.drawImage(image, mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y, dai, rong, null);
@@ -98,7 +98,7 @@ public class Snake {
                 mangHinh[i].x -= chieuDaiPanel;
                 continue;
             }
-
+    
             if (mangHinh[i].y < 0) {
                 mangHinh[i].y += chieuDaiPanel;
                 continue;

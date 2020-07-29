@@ -22,11 +22,19 @@ public class Prey {
     int x = 150, y = 30;
     boolean lamMoi = true;
 
-    void veHinh(Graphics g2d) throws IOException {
+    void veHinh(Graphics g2d, Snake snake) throws IOException {
         Random random = new Random();
         if (lamMoi) {
             x = (random.nextInt(19) + 1) * 30;
             y = (random.nextInt(19) + 1) * 30;
+            for (int i = 0; i < snake.soLuongHinh - 1; i++) {
+                Hinh hinh = snake.mangHinh[i];
+                if (x == hinh.x && y == hinh.y) {
+                    x = (random.nextInt(19) + 1) * 30;
+                    y = (random.nextInt(19) + 1) * 30;
+                }
+            }
+            
             lamMoi = false;
         }
         BufferedImage image;
@@ -36,5 +44,6 @@ public class Prey {
         } catch (IOException ex) {
             Logger.getLogger(ChuongNgaiVat.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }

@@ -20,7 +20,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
     Snake snake = new Snake();
     Prey prey = new Prey();
     boolean drawPrey = true;
-    int huongdi = 0, dem = 0;
+    int huongdi = 0;
     Timer timer;
     int chieuDaiPanel = 600;
     int diem = 0;
@@ -43,9 +43,8 @@ public class ManHinhGame extends JPanel implements KeyListener {
                 }
                 
                 jLabel.setText("Score: " + diem);
-                dem++;
                 if(snake.XuLyThangThua()) {
-                    JOptionPane.showMessageDialog(null, "Game over");
+                    JOptionPane.showMessageDialog(null, "Game over. \nYour score: " + diem);
                     timer.stop();
                 }
                 repaint();                                                      
@@ -60,7 +59,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
         try {
             g2d.setColor(Color.GREEN);
             snake.veHinh(g2d);
-            prey.veHinh(g2d);
+            prey.veHinh(g2d, snake);
         } catch (Exception ex) {
             System.out.println("asdsadadad");
         }
@@ -73,7 +72,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if ((huongdi == 37 && e.getKeyCode() == 39)
+        if ((huongdi == 37 && e.getKeyCode( ) == 39)
                 || (huongdi == 39 && e.getKeyCode() == 37)
                 || (huongdi == 38 && e.getKeyCode() == 40)
                 || (huongdi == 40 && e.getKeyCode() == 38)) {
