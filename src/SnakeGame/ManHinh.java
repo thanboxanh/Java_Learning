@@ -3,7 +3,6 @@ package SnakeGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -11,10 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
- * @author Bo Than
+ * @author ThanBoXanh
  */
 public class ManHinh extends JFrame {
     
@@ -42,22 +42,25 @@ public class ManHinh extends JFrame {
             }
         });
     }
+    
 
     void taoButton(JLabel jLabel) { 
         JPanel panelButton = new JPanel();
         JButton buttonStart = new JButton("Start");
         buttonStart.setSize(300, 300);
-        buttonStart.setAlignmentX(LEFT_ALIGNMENT);
+//        buttonStart.setAlignmentX(LEFT_ALIGNMENT);
         panelButton.add(buttonStart);
-        panelButton.setMaximumSize(new Dimension(400, 500));
+        panelButton.setMaximumSize(new Dimension(300, 500));
         
         add(panelButton);
                
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.requestFocus();
-                panel.timer.start();
+                if(!panel.daThua) {
+                    panel.requestFocus();
+                    panel.timer.start();
+                }
             }
         });
         JButton buttonStop = new JButton("Stop");
@@ -68,7 +71,16 @@ public class ManHinh extends JFrame {
                 panel.timer.stop();
             }
         });
-        
+                
+        JTextField jTextField = new JTextField();
+        jTextField.setText("player 1");
+        jTextField.setPreferredSize(new Dimension(100, 30));
+        buttonStart.setAlignmentX(LEFT_ALIGNMENT);
         panelButton.add(jLabel);
+        
+        JButton buttonReset = new JButton("lam lai cuoc doi");
+        buttonReset.setBackground(Color.red);
+        panelButton.add(buttonReset);
+        panelButton.add(jTextField);
     }
 }

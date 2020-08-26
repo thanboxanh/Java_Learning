@@ -24,6 +24,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
     Timer timer;
     int chieuDaiPanel = 600;
     int diem = 0;
+    boolean daThua = false;
 
     public ManHinhGame(JLabel jLabel) {
         timer = new Timer(150, new ActionListener() {
@@ -46,6 +47,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
                 if(snake.XuLyThangThua()) {
                     JOptionPane.showMessageDialog(null, "Game over. \nYour score: " + diem);
                     timer.stop();
+                    daThua = true;
                 }
                 repaint();                                                      
             }
@@ -79,7 +81,7 @@ public class ManHinhGame extends JPanel implements KeyListener {
             return;
         }
         if (e.getKeyCode() <= 40 && e.getKeyCode() >= 37) {
-            huongdi = e.getKeyCode();
+          huongdi = e.getKeyCode();
         }
     }
 
