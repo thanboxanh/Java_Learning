@@ -16,12 +16,13 @@ public class DeQuy {
     
     static String taoChuoi() {
         String chuoi = "hello";
+        System.out.println(chuoi);
         return chuoi;
     }
     
     public static void main(String[] args) throws InterruptedException {
 //        intSo();
-        String ketqua = taoChuoi();
-        System.out.println(ketqua);
+//        String ketqua = taoChuoi();
+//        System.out.println(ketqua);
     }
 }
