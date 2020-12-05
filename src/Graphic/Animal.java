@@ -27,7 +27,7 @@ public class Animal {
     }
 
     void randomTocDo() {
-        tocdo = random.nextInt(100) + 10;
+        tocdo = random.nextInt(30) + 10;
     }
 
     void veHinh(Graphics g2d) throws IOException {

@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,10 +40,15 @@ class Surfaces extends JPanel {
         dog = new Animal(hinhDog, 10, 450);
     }
 
-    void taoHinhBao() {
+    void taoHinhGiaBao() {
         String[] hinhBao = new String[24];
         for (int i = 0; i <= hinhBao.length - 1; i++) {
-            hinhBao[i] = "bao/bao-" + i + ".jpg";
+            if(i < 10) {
+                hinhBao[i] = "con_bo/frame_0" + i + "_delay-0.02s.gif";
+            } else {
+                hinhBao[i] = "con_bo/frame_" + i + "_delay-0.02s.gif";
+            }
+
         }
         jguard = new Animal(hinhBao, 10, 650);
     }
@@ -89,14 +92,14 @@ class Surfaces extends JPanel {
     }
 
     public Surfaces() throws InterruptedException {
-        taoHinhBao();
+        taoHinhGiaBao();
         taoHinhDog();
         taoHinhGa();
         taoHinhMario();
         taoButton();
         taoChuongNgaiVat();
 
-        timer = new Timer(70, new ActionListener() {
+        timer = new Timer(30, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -135,7 +138,7 @@ public class RaceGame extends JFrame {
         try {
             initUI();
         } catch (InterruptedException ex) {
-            Logger.getLogger(BasicEx.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(BasicEx.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

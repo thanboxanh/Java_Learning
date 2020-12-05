@@ -13,16 +13,16 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author PC
+ * @author Than Bo Xanh
  */
 public class Prey {
 
-    int dai = 40;
-    int rong = 40;
+    int dai = 50;
+    int rong = 40 ;
     int x = 150, y = 30;
     boolean lamMoi = true;
 
-    void veHinh(Graphics g2d, Snake snake) throws IOException {
+    void veHinh(Graphics g2d, Snake snake) {
         Random random = new Random();
         if (lamMoi) {
             x = (random.nextInt(19) + 1) * 30;
@@ -39,11 +39,12 @@ public class Prey {
         }
         BufferedImage image;
         try {
-            image = ImageIO.read(new File("prey.png"));
+            int randomHinh = random.nextInt(10)+1;
+            image = ImageIO.read(new File("prey" + randomHinh + ".png"));
             g2d.drawImage(image, x, y, dai, rong, null);
         } catch (IOException ex) {
-            Logger.getLogger(ChuongNgaiVat.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Không thể vẽ con mồi, vui lòng kiểm tra lại");
         }
-        
+
     }
 }

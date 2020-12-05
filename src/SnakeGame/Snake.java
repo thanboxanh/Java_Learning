@@ -1,9 +1,10 @@
 package SnakeGame;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
@@ -24,9 +25,15 @@ public class Snake {
         mangHinh[1] = new Hinh(30 + dai, 30);
     }
 
-    void veHinh(Graphics g2d) throws IOException {
+    public void reset(){
+        soLuongHinh = 2;
+    }
+
+    void veHinh(Graphics g2d, Color[] colorLife, int dem) throws IOException {
+        Random random = new Random();
         for (int i = 0; i < soLuongHinh - 1; i++) {
-//            g2d.fill3DRect(mangHinh[i].x, mangHinh[i].y, dai, rong, true);
+            int soRandom = random.nextInt(dem + 1);
+            g2d.setColor(colorLife[soRandom]);
             g2d.fillOval(mangHinh[i].x, mangHinh[i].y, dai, rong);
         }
         BufferedImage image = ImageIO.read(new File(head));
@@ -51,7 +58,7 @@ public class Snake {
         h2.y = tam.y;
     }
 
-    void moveXuong(int chieuDaiPanel) {
+    void moveDown(int chieuDaiPanel) {
         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y + dai);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
@@ -60,7 +67,7 @@ public class Snake {
         resetVitri(chieuDaiPanel);
     }
 
-    void moveTrai(int chieuDaiPanel) {
+    void moveLeft(int chieuDaiPanel) {
         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x - dai, mangHinh[soLuongHinh - 1].y);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);
@@ -69,7 +76,7 @@ public class Snake {
         resetVitri(chieuDaiPanel);
     }
 
-    void moveLen(int chieuDaiPanel) {
+    void moveUp(int chieuDaiPanel) {
         Hinh hinhMoi = new Hinh(mangHinh[soLuongHinh - 1].x, mangHinh[soLuongHinh - 1].y - dai);
         for (int i = soLuongHinh - 1; i >= 0; i--) {
             hoanDoi(mangHinh[i], hinhMoi);

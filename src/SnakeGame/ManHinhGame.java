@@ -1,18 +1,13 @@
 package SnakeGame;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
- *
  * @author PC
  */
 public class ManHinhGame extends JPanel implements KeyListener {
@@ -20,36 +15,50 @@ public class ManHinhGame extends JPanel implements KeyListener {
     Snake snake = new Snake();
     Prey prey = new Prey();
     boolean drawPrey = true;
-    int huongdi = 0;
+    int direction = 0;
     Timer timer;
-    int chieuDaiPanel = 600;
+    int widthPanel = 600;
     int diem = 0;
-    boolean daThua = false;
+    int dem = 0;
+    boolean losed = false;
+    Color[] colorLife = {Color.green, Color.WHITE, Color.orange, Color.yellow, Color.pink};
+
+    public void reset() {
+        snake = new Snake();
+        snake.reset();
+        repaint();
+        if (dem == 4) {
+            dem = 0;
+            diem = 0;
+        } else {
+            dem++;
+        }
+    }
 
     public ManHinhGame(JLabel jLabel) {
         timer = new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (huongdi == 39) {
-                    snake.moveRight(chieuDaiPanel);
-                } else if (huongdi == 40) {
-                    snake.moveXuong(chieuDaiPanel);
-                } else if (huongdi == 37) {
-                    snake.moveTrai(chieuDaiPanel);
-                } else if (huongdi == 38) {
-                    snake.moveLen(chieuDaiPanel);
+                if (direction == 39) {
+                    snake.moveRight(widthPanel);
+                } else if (direction == 40) {
+                    snake.moveDown(widthPanel);
+                } else if (direction == 37) {
+                    snake.moveLeft(widthPanel);
+                } else if (direction == 38) {
+                    snake.moveUp(widthPanel);
                 }
-                if(snake.eatPrey(prey, huongdi)) {
+                if (snake.eatPrey(prey, direction)) {
                     diem++;
                 }
-                
+
                 jLabel.setText("Score: " + diem);
-                if(snake.XuLyThangThua()) {
+                if (snake.XuLyThangThua()) {
                     JOptionPane.showMessageDialog(null, "Game over. \nYour score: " + diem);
                     timer.stop();
-                    daThua = true;
+                    losed = true;
                 }
-                repaint();                                                      
+                repaint();
             }
         });
         timer.start();
@@ -59,11 +68,11 @@ public class ManHinhGame extends JPanel implements KeyListener {
     public void paintComponent(Graphics g2d) {
         super.paintComponent(g2d);
         try {
-            g2d.setColor(Color.GREEN);
-            snake.veHinh(g2d);
+            g2d.setColor(colorLife[dem]);
+            snake.veHinh(g2d, colorLife, dem);
             prey.veHinh(g2d, snake);
         } catch (Exception ex) {
-            System.out.println("asdsadadad");
+            System.out.println("Bạn đã code sai, vui lòng kiểm tra lại");
         }
     }
 
@@ -74,14 +83,14 @@ public class ManHinhGame extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if ((huongdi == 37 && e.getKeyCode( ) == 39)
-                || (huongdi == 39 && e.getKeyCode() == 37)
-                || (huongdi == 38 && e.getKeyCode() == 40)
-                || (huongdi == 40 && e.getKeyCode() == 38)) {
+        if ((direction == 37 && e.getKeyCode() == 39)
+                || (direction == 39 && e.getKeyCode() == 37)
+                || (direction == 38 && e.getKeyCode() == 40)
+                || (direction == 40 && e.getKeyCode() == 38)) {
             return;
         }
         if (e.getKeyCode() <= 40 && e.getKeyCode() >= 37) {
-          huongdi = e.getKeyCode();
+            direction = e.getKeyCode();
         }
     }
 
